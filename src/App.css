@@ -1,0 +1,23 @@
+.App {
+  text-align: center;
+}
+
+/* Additional custom styles */
+.weather-icon {
+  font-size: 4rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.weather-card {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.weather-detail-card {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 640px) {
+  .weather-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
