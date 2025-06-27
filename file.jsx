@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Cloud, Sun, CloudRain, CloudSnow, Wind, Eye, Droplets, Thermometer, MapPin, Search, Loader2 } from 'lucide-react';
+import {
+  Cloud, Sun, CloudRain, CloudSnow,
+  Wind, Eye, Droplets, Thermometer,
+  MapPin, Search, Loader2
+} from 'lucide-react';
 
 const WeatherApp = () => {
   const [weather, setWeather] = useState(null);
@@ -8,36 +12,12 @@ const WeatherApp = () => {
   const [city, setCity] = useState('');
   const [searchCity, setSearchCity] = useState('Sydney');
 
-  // OpenWeatherMap API key - you'll need to replace this with your own
-  const API_KEY = 'your_api_key_here';
+  const API_KEY = 'your_api_key_here'; // <-- Replace with your actual API key
   const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
-
-  // Mock weather data for demonstration (remove when using real API)
-  const mockWeatherData = {
-    name: "Sydney",
-    main: {
-      temp: 22,
-      feels_like: 24,
-      humidity: 65,
-      pressure: 1013
-    },
-    weather: [{
-      main: "Clouds",
-      description: "partly cloudy",
-      icon: "02d"
-    }],
-    wind: {
-      speed: 3.5
-    },
-    visibility: 10000,
-    sys: {
-      country: "AU"
-    }
-  };
 
   const getWeatherIcon = (weatherMain, size = 'w-16 h-16') => {
     const iconProps = { className: `${size} text-white drop-shadow-lg` };
-    
+
     switch (weatherMain?.toLowerCase()) {
       case 'clear':
         return <Sun {...iconProps} className={`${iconProps.className} text-yellow-300`} />;
@@ -72,27 +52,17 @@ const WeatherApp = () => {
   const fetchWeather = async (cityName) => {
     setLoading(true);
     setError('');
-    
+
     try {
-      // For demo purposes, we'll use mock data
-      // In a real app, uncomment the following lines and add your API key:
-      
-      /*
       const response = await fetch(
         `${BASE_URL}?q=${cityName}&appid=${API_KEY}&units=metric`
       );
-      
+
       if (!response.ok) {
         throw new Error('Weather data not found');
       }
-      
+
       const data = await response.json();
-      */
-      
-      // Using mock data for demonstration
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API delay
-      const data = { ...mockWeatherData, name: cityName };
-      
       setWeather(data);
     } catch (err) {
       setError('Failed to fetch weather data. Please check the city name and try again.');
@@ -118,13 +88,12 @@ const WeatherApp = () => {
   return (
     <div className={`min-h-screen bg-gradient-to-br ${getBackgroundGradient(weatherMain)} p-4`}>
       <div className="max-w-md mx-auto">
-        {/* Header */}
+
         <div className="text-center mb-8 pt-8">
           <h1 className="text-3xl font-bold text-white mb-2">Weather App</h1>
           <p className="text-white/80">Get current weather conditions</p>
         </div>
 
-        {/* Search */}
         <div className="mb-8">
           <div className="relative">
             <input
@@ -149,17 +118,14 @@ const WeatherApp = () => {
           </div>
         </div>
 
-        {/* Error Message */}
         {error && (
           <div className="mb-6 p-4 bg-red-500/20 backdrop-blur-md rounded-lg border border-red-300/30">
             <p className="text-white text-center">{error}</p>
           </div>
         )}
 
-        {/* Weather Display */}
         {weather && !loading && (
           <div className="space-y-6">
-            {/* Main Weather Card */}
             <div className="bg-white/20 backdrop-blur-md rounded-2xl p-6 border border-white/30">
               <div className="text-center mb-6">
                 <div className="flex items-center justify-center mb-2">
@@ -186,7 +152,6 @@ const WeatherApp = () => {
               </div>
             </div>
 
-            {/* Weather Details Grid */}
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 border border-white/30">
                 <div className="flex items-center mb-2">
@@ -228,10 +193,9 @@ const WeatherApp = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>  
         )}
 
-        {/* Loading State */}
         {loading && (
           <div className="text-center py-12">
             <Loader2 className="w-12 h-12 text-white animate-spin mx-auto mb-4" />
@@ -239,7 +203,6 @@ const WeatherApp = () => {
           </div>
         )}
 
-        {/* Footer */}
         <div className="text-center mt-12 pb-8">
           <p className="text-white/60 text-sm">
             Built with React • Powered by OpenWeatherMap
